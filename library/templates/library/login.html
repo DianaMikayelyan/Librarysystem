@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'library/css/login.css' %}">
+    <title>Your Pro Library</title>
+</head>
+<body>
+    <div class="main-nav">
+        <div class="logo">
+            <a href="{% url 'library' %}"><img src="{% static 'library/img/shenq.png' %}" alt=""></a>
+            <a href="{% url 'library' %}"><h1>PROG LIBRARY</h1></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'library' %}#MyBooks">My Books</a></li>
+            <!-- <li><a href="{% url 'login' %}">Log In</a></li> -->
+            <!-- <li><a href="{% url 'signup' %}">Sign up</a></li> -->
+        </ul>
+    </div>
+    <div class="login-wrapper">
+        <div class="login-box">
+            <div class="login-header">
+                <header>Login</header>
+            </div>
+            <form id="login-form" method="post">
+                {% csrf_token %}
+                <div class="input-box">
+                    <input type="text" class="input-field" name="username" placeholder="Email" autocomplete="username" required>
+                </div>
+                <div class="input-box">
+                    <input type="password" class="input-field" name="password" placeholder="Password" autocomplete="password" required>
+                </div>
+                <div class="forget">
+                    <section>
+                        <input type="checkbox" id="remember-me" name="remember-me">
+                        <label for="remember-me">Remember Me</label>
+                    </section>
+                    <section>
+                        <a href="{% url 'password_reset'% }">Forgot Password</a>
+                    </section>
+                </div>
+                <div class="input-sumbit">
+                    <button class="submit-btn" type="submit" id="submit">Log In</button>
+                </div>
+                <div class="sign-up-link">
+                    <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+                </div>
+                {% if error %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+    
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h2>About Us</h2>
+                <p>Welcome to PROG LIBRARY, your go-to source for programming books. Explore, learn, and grow with us.</p>
+            </div>
+            <div class="footer-section links">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="#MyBooks">My Books</a></li>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section contact">
+                <h2>Contact Us</h2>
+                <p>Email:mikayelyan_diana@mail.ru</p>
+                <p>Phone: +374 (94) 418203</p>
+                <p>Address: 123 Library, Booktown</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 PROG LIBRARY. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="{% static 'library/js/login.js' %}"></script>
+
+
+</body>
+</html>

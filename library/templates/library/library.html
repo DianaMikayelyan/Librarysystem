@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpo
+    rt" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'library/css/library.css' %}">
+    <title>Your Pro Library</title>
+</head>
+<body>
+    <div class="main-nav">
+        <div class="logo">
+            <a href="{% url 'library' %}"><img src="{% static 'library/img/shenq.png' %}" alt="Logo"></a>
+            <a href="{% url 'library' %}"><h1>PROG LIBRARY</h1></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#MyBooks">My Books</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'user_profile' %}"><img src="{% static 'library/img/icon8-user-30.png' %}" alt="User Icon" class="user-icon"></a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Log In</a></li>
+                <li><a href="{% url 'signup' %}">Sign up</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="content-body">
+        {% if books %}
+        <ul class="book-list">
+            {% for book in books %}
+                <li>
+                    <img src="{{ book.cover_image.url }}" alt="{{ book.title }} cover" class="book-cover">
+                    <h2>{{ book.title }}</h2>
+                    <p>by {{ book.author }}</p>
+                    {% if user.is_authenticated %}
+                        <!-- Read button for each book (for authenticated users) -->
+                        <a href="{{ book.read_link }}" class="read-button" target="_blank">Read</a>
+                    {% else %}
+                        <!-- Read button redirects to signup page (for unauthenticated users) -->
+                        <p><a href="{% url 'signup' %}" class="read-button">Read</a></p>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <!-- Borrow button for each book -->
+                        <a href="{% url 'borrow_book' book.id %}" class="borrow-button">Borrow</a>
+                    {% else %}
+                        <!-- Borrow button redirects to signup page (for unauthenticated users) -->
+                        <p><a href="{% url 'signup' %}" class="borrow-button">Borrow</a></p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No books found matching your search query.</p>
+        {% endif %}
+    </div>
+    
+    
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h2>About Us</h2>
+                <p>Welcome to PROG LIBRARY, your go-to source for programming books. Explore, learn, and grow with us.</p>
+            </div>
+            <div class="footer-section links">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="#MyBooks">My Books</a></li>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section contact">
+                <h2>Contact Us</h2>
+                <p>Email: mikayelyan_diana@mail.ru</p>
+                <p>Phone: +374 (94) 418203</p>
+                <p>Address: 123 Library, Booktown</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 PROG LIBRARY. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="{% static 'library/js/library.js' %}"></script>
+</body>
+</html>

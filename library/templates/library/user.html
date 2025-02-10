@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'library/css/library.css' %}">
+    <title>User Profile</title>
+</head>
+<body>
+    <div class="main-nav">
+        <div class="logo">
+            <a href="{% url 'library' %}"><img src="{% static 'library/img/shenq.png' %}" alt="Logo"></a>
+            <a href="{% url 'library' %}"><h1>PROG LIBRARY</h1></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'library' %}#MyBooks">My Books</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+        </ul>
+    </div>
+
+    <div class="profile-wrapper">
+        <div class="profile-details">
+            <h3>Personal Information</h3>
+            <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+        <div class="profile-activity">
+            <h3>Recent Activity</h3>
+            <ul>
+                {% for activity in activities %}
+                    <li>{{ activity.timestamp }}: {{ activity.user.username }} {{ activity.activity_type }} {{ activity.book.title }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h2>About Us</h2>
+                <p>Welcome to PROG LIBRARY, your go-to source for programming books. Explore, learn, and grow with us.</p>
+            </div>
+            <div class="footer-section links">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="#MyBooks">My Books</a></li>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section contact">
+                <h2>Contact Us</h2>
+                <p>Email: mikayelyan_diana@mail.ru</p>
+                <p>Phone: +374 (94) 418203</p>
+                <p>Address: 123 Library, Booktown</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 PROG LIBRARY. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="{% static 'library/js/library.js' %}"></script>
+</body>
+</html>
